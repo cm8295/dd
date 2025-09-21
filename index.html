@@ -74,7 +74,7 @@
         <div class="mic-section">
             <h2>麦克风输入</h2>
             <button id="micButton" class="mic-button">开始录音</button>
-            <div id="visualization" class="visualization"></div>
+            <canvas id="visualization" class="visualization"></canvas>
             <p id="status">点击按钮开始使用麦克风</p>
         </div>
     </div>
@@ -95,11 +95,14 @@
         const micButton = document.getElementById('micButton');
         const statusText = document.getElementById('status');
         const visualization = document.getElementById('visualization');
-        const canvasCtx = visualization.getContext('2d');
+        let canvasCtx;
         
-        // Initialize canvas
-        visualization.width = visualization.offsetWidth;
-        visualization.height = visualization.offsetHeight;
+        // Initialize canvas after page load
+        window.addEventListener('load', () => {
+            canvasCtx = visualization.getContext('2d');
+            visualization.width = visualization.offsetWidth;
+            visualization.height = visualization.offsetHeight;
+        });
         
         micButton.addEventListener('click', async () => {
             if (!isRecording) {
